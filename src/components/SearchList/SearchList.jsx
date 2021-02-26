@@ -7,6 +7,7 @@ export default class SearchList extends Component {
   render() {
     return (
       <>
+        <p className={styles.searchResultTitle}>Search Results ({this.props.search.length})</p>
         <ul className={styles.SearchList}>
           {this.props.search.map((item) => (
             <SearchItem item={item} key={uuidv4()} />
