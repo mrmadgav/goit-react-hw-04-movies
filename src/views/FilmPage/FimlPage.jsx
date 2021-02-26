@@ -22,7 +22,7 @@ class FilmPage extends Component {
   }
   render() {
     return (
-      <>
+      <div>
         <BackBtn props={this.props} />
         <div className={styles.filmCard}>
           <div className={styles.posterDiv}>
@@ -37,21 +37,22 @@ class FilmPage extends Component {
             <p>
               <span className={styles.undertitles}>Overview:</span>{" "}
             </p>
-            {this.state.films.overview}
+            <p className={styles.overview}>{this.state.films.overview}</p>
+
             <p>
               <span className={styles.undertitles}>Genres: </span>
             </p>
             {this.state.genres}
           </div>
         </div>
-        <div>
+        <div className={styles.additionals}>
           <span className={styles.undertitles}>Additional Information</span>
           <div className={styles.filmPageAddNav}>
             <Cast id={this.state.films.id} />
             <Reviews id={this.state.films.id} />
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

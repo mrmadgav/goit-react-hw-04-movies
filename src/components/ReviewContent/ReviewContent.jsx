@@ -18,7 +18,13 @@ class ReviewContent extends Component {
       <ul>
         {this.state.reviews.map((i) => (
           <li key={i.author} className={styles.reviewsItem}>
-            <p className={styles.author}>Nickname: {i.author}</p>
+            <div className={styles.reviewsTitlesWrapper}>
+              <span className={styles.author}>Nickname: {i.author}</span>
+              <span className={styles.author}>
+                Date: {i.created_at.substr(0, 10)}
+              </span>
+            </div>
+
             <p>{i.content}</p>
           </li>
         ))}
