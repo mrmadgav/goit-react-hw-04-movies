@@ -1,0 +1,14 @@
+.NavLink {
+    display: block;
+    padding: 10px;
+    color: darkblue;
+  }
+  .NavLinkActive {
+    display: block;
+    color: coral;
+    border: 1px solid coral;
+    border-radius: 4px;
+  }
+  .castElem{
+      display: flex;
+  }

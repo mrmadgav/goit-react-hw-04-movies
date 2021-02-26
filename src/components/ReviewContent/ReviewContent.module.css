@@ -1,0 +1,12 @@
+.author {
+  font-family: "Franklin Gothic Medium";
+  font-size: 20px;
+  color: #355681;
+}
+.reviewsItem {
+  border: 2px solid #ccc;
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 16px;
+  margin: 16px 0;
+}

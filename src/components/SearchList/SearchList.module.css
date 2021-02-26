@@ -1,0 +1,12 @@
+.SearchList {
+  max-width: calc(20vw - 96px);
+  margin-top: 10px;
+  margin-bottom: 0;
+  padding: 0;
+}
+.loaderDiv {
+  text-align: center;
+  left: 45%;
+  top: 35%;
+  position: absolute;
+}
