@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Axios from "axios";
 import styles from "./ReviewContent.module.css";
 
-class ReviewContent extends Component {
+export default class ReviewContent extends Component {
   state = {
     reviews: [],
   };
@@ -16,21 +16,28 @@ class ReviewContent extends Component {
   render() {
     return (
       <ul>
-        {this.state.reviews.map((i) => (
-          <li key={i.author} className={styles.reviewsItem}>
-            <div className={styles.reviewsTitlesWrapper}>
-              <span className={styles.author}>Nickname: {i.author}</span>
-              <span className={styles.author}>
-                Date: {i.created_at.substr(0, 10)}
-              </span>
-            </div>
-
-            <p>{i.content}</p>
-          </li>
-        ))}
+        {this.state.reviews.length !== 0 ? (
+          this.state.reviews.map(
+            (i, index) =>
+              [index] <= 5 && (
+                <li key={i.author} className={styles.reviewsItem}>
+                  <div className={styles.reviewsTitlesWrapper}>
+                    <span className={styles.author}>Nickname: {i.author}</span>
+                    <span className={styles.author}>
+                      Date: {i.created_at.substr(0, 10)}
+                    </span>
+                  </div>
+                  <p>{i.content.split("/(.{0,37}[s])/gi")}</p>
+                  {/*Как разбить JSON на абзацы или отследить разрывы строк, которые там есть? Ни регулярки, ниче не помогает((( */}
+                </li>
+              )
+          )
+        ) : (
+          <div>
+            <span>There aren`t any reviews...write the first</span>
+          </div>
+        )}
       </ul>
     );
   }
 }
-
-export default ReviewContent;

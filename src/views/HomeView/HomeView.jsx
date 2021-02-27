@@ -10,6 +10,7 @@ class HomeView extends Component {
     randomFilm: {},
     randomCast: [],
     showCastModal: false,
+    currentCastPerson: {},
   };
 
   async componentDidMount() {
@@ -32,7 +33,16 @@ class HomeView extends Component {
   };
 
   handleOnMouseOver(e) {
+    this.state.randomCast.map(
+      (i) =>
+        i.name === e.target.innerHTML && this.setState({ currentCastPerson: i })
+    );
     this.setState({ showCastModal: true });
+  }
+
+  handleOnMouseLeave(e) {
+    this.setState({ showCastModal: false });
+    e.target.classList.remove("activeCastLink");
   }
 
   render() {
@@ -41,7 +51,7 @@ class HomeView extends Component {
       <div className={styles.homeWrapper}>
         <ul className={styles.weekList}>
           <li>
-            <h3>Week Trends:</h3>
+            <h3 className={styles.weekTrends}>Week Trends:</h3>
           </li>
           {this.state.films.map((i) => (
             <li key={i.id}>
@@ -51,7 +61,9 @@ class HomeView extends Component {
                   state: { from: this.props.location },
                 }}
               >
-                {i.title}
+                <span className={styles.WeekFilmLinkElementContext}>
+                  {i.title}
+                </span>
               </Link>
             </li>
           ))}
@@ -73,19 +85,27 @@ class HomeView extends Component {
         <div>
           <p className={styles.mainOverview}>{randomFilm.overview}</p>
           <p className={styles.starringTitle}>Starring:</p>
-          <ul>
-            {this.state.randomCast.map(
-              (i, index) =>
-                [index] <= 5 && (
-                  <>
-                    <li key={i.name} onMouseEnter={(e) => this.handleOnMouseOver(e)}>
-                      {i.name}
-                    </li>
-                    <CastModal/>
-                  </>
-                )
+          <div className={styles.castModalWrapper}>
+            <ul>
+              {this.state.randomCast.map(
+                (i, index) =>
+                  [index] <= 5 && (
+                    <>
+                      <li
+                        key={i.name}
+                        onMouseEnter={(e) => this.handleOnMouseOver(e)}
+                        onMouseLeave={(e) => this.handleOnMouseLeave(e)}
+                      >
+                        <span className={styles.castSpan}>{i.name}</span>
+                      </li>
+                    </>
+                  )
+              )}
+            </ul>
+            {this.state.showCastModal && (
+              <CastModal currentCastPerson={this.state.currentCastPerson} />
             )}
-          </ul>
+          </div>
         </div>
       </div>
     );

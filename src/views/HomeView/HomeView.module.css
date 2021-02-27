@@ -4,9 +4,11 @@
 .mainPoster {
   margin-top: 30px;
   margin-left: 50px;
-
-  width: 70%;
-  height: 70%;
+  margin-right: 50px;
+  width: 300px;
+  min-height: 200px;
+  /* width: 70%;
+  height: 70%; */
   box-shadow: inset 0 0 0 1px rgba(53, 86, 129, 0.4),
     inset 0 0 5px rgba(53, 86, 129, 0.5), inset -285px 0 35px white;
   border-radius: 0 10px 0 10px;
@@ -30,4 +32,21 @@
   font-family: "Franklin Gothic Medium";
   font-size: 20px;
   color: #355681;
+}
+.castModalWrapper {
+  display: flex;
+}
+.castSpan:hover {
+  cursor: pointer;
+  color: coral;
+}
+.weekTrends {
+  font-size: 30px;
+}
+.WeekFilmLinkElementContext{
+  text-decoration: none;
+  font-size: 18px;
+}
+.WeekFilmLinkElementContext:hover {
+  color: coral;
 }

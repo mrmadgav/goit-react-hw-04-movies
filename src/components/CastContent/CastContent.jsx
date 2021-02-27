@@ -18,9 +18,6 @@ class CastContent extends Component {
       <ul className={styles.castContDiv}>
         {this.state.cast.map((i) => (
           <li key={i.name}>
-            {/* {Axios.get(`https://image.tmdb.org/t/p/w500${i.profile_path}`, {
-              credentials: "include",
-            }).then((response) => console.log(response.status))} */}
             {i.profile_path ? (
               <img
                 src={`https://image.tmdb.org/t/p/w500${i.profile_path}`}
