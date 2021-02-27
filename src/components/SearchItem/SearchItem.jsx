@@ -12,7 +12,12 @@ export default class SearchItem extends Component {
         <li id={item.id} className={styles.SearchItem}>
           <div className={styles.searchItemWrapper}>
             <NavLink
-              to={`/movies/${item.id}`}
+              to={{
+                pathname: `/movies/${item.id}`,
+                state: {
+                  from: `/movies/${this.props.location}`,
+                },
+              }}
               className={styles.NavLink}
               activeClassName={styles.NavLinkActive}
             >

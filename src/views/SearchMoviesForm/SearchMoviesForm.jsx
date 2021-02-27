@@ -9,33 +9,44 @@ class SearchMoviesForm extends Component {
   state = {
     search: [],
     currentSearch: "",
-    flag: 0,
+    flag: 1,
     loader: false,
   };
+
+
   change = (e) => {
     this.setState({ currentSearch: e.target.value });
   };
+
+  componentDidMount() {
+    console.log(this.props.location.search)
+      setTimeout(() => {
+        Axios.get(
+          `https://api.themoviedb.org/3/search/movie?api_key=cae2ba5bb4d635ff4cc14f2582722050&query=${this.props.location.search}`,
+          { credentials: "include" }
+        ).then((response) => this.setState({ search: response.data.results }));
+      }, 1400);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.location.search != nextProps.location.search) {
+      setTimeout(() => {
+        Axios.get(
+          `https://api.themoviedb.org/3/search/movie?api_key=cae2ba5bb4d635ff4cc14f2582722050&query=${this.state.currentSearch}`,
+          { credentials: "include" }
+        ).then((response) => this.setState({ search: response.data.results }));
+      }, 1400);
+    }
+  }
+  
   submit = (e) => {
     e.preventDefault();
-    this.setState({ flag: 1 });
-    setTimeout(() => {
-      Axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=cae2ba5bb4d635ff4cc14f2582722050&query=${this.state.currentSearch}`,
-        { credentials: "include" }
-      ).then((response) => this.setState({ search: response.data.results }));
-    }, 1400);
-  };
-
-  getcurrentImg = (e) => {
-    const id = e.target.closest("[id]").id;
-    this.setState({
-      currentImg: this.state.search.find((i) => i.id === Number(id)),
+    this.props.history.push({
+      pathname: this.props.location.pathname,
+      search: `name=${this.state.currentSearch}`,
     });
-    this.toggleModal();
   };
-  toggleModal = () => {
-    this.setState(({ showmodal }) => ({ showmodal: !showmodal }));
-  };
+  
   render() {
     return (
       <>
@@ -59,8 +70,10 @@ class SearchMoviesForm extends Component {
             <span>You results will be here</span>
           </div>
         )}
-        {this.state.flag === 1 && <SearchList search={this.state.search} />}
-        {this.state.flag === 1 && (
+          <SearchList
+            search={this.state.search}
+            from={`${this.props.location.pathname}/?name=${this.state.currentSearch}`}
+          />
           <div className="">
             <Loader
               type="Puff"
@@ -70,7 +83,6 @@ class SearchMoviesForm extends Component {
               timeout={900}
             />
           </div>
-        )}
       </>
     );
   }

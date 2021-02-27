@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import Axios from "axios";
 import styles from "./FilmPage.module.css";
 import Cast from "../../components/Cast/Cast";
+import CastButton from "../../components/Cast/CastButton";
 import Reviews from "../../components/Reviews/Reviews";
+import ReviewsButton from "../../components/Reviews/ReviewsButton";
 import BackBtn from "../../components/BackBtn/BackBtn";
 
 class FilmPage extends Component {
@@ -20,10 +22,13 @@ class FilmPage extends Component {
     const genres = this.state.films.genres.map((i) => i.name).join(", ");
     this.setState({ genres: genres });
   }
+  handleGoBack = () => {
+    this.props.history.goBack();
+  };
   render() {
     return (
       <div>
-        <BackBtn props={this.props} />
+        <BackBtn handleGoBack={this.handleGoBack} />
         <div className={styles.filmCard}>
           <div className={styles.posterDiv}>
             <img
@@ -48,6 +53,8 @@ class FilmPage extends Component {
         <div className={styles.additionals}>
           <span className={styles.undertitles}>Additional Information</span>
           <div className={styles.filmPageAddNav}>
+            <CastButton id={this.state.films.id} />
+            <ReviewsButton id={this.state.films.id} />
             <Cast id={this.state.films.id} />
             <Reviews id={this.state.films.id} />
           </div>

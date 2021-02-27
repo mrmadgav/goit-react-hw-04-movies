@@ -37,7 +37,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={HomeView} />
           <Route path="/movies/:filmId" component={FilmPage} />
-          <Route path="/movies" component={SearchMoviesForm} />
+          <Route path="/movies/" strict={false} exact={false} component={SearchMoviesForm} />
           <Route component={HomeView} />
         </Switch>
       </Section>
