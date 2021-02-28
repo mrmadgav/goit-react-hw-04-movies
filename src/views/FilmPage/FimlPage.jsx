@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import styles from "./FilmPage.module.css";
-import Cast from "../../components/Cast/Cast";
 import CastButton from "../../components/Cast/CastButton";
-import Reviews from "../../components/Reviews/Reviews";
 import ReviewsButton from "../../components/Reviews/ReviewsButton";
 import BackBtn from "../../components/BackBtn/BackBtn";
+const Cast = React.lazy(
+  () => import("../../components/Cast/Cast") /* webpackChunkName: "Cast" */
+);
+const Reviews = React.lazy(
+  () =>
+    import("../../components/Reviews/Reviews") /* webpackChunkName: "Reviews" */
+);
 
 class FilmPage extends Component {
   state = {
@@ -55,8 +60,10 @@ class FilmPage extends Component {
           <div className={styles.filmPageAddNav}>
             <CastButton id={this.state.films.id} />
             <ReviewsButton id={this.state.films.id} />
-            <Cast id={this.state.films.id} />
-            <Reviews id={this.state.films.id} />
+            <React.Suspense fallback={<div>Loading</div>}>
+              <Cast id={this.state.films.id} />
+              <Reviews id={this.state.films.id} />
+            </React.Suspense>
           </div>
         </div>
       </div>

@@ -1,9 +1,16 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import styles from "./SearchMoviesForm.module.css";
-import SearchList from "../../components/SearchList/SearchList";
-import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+const SearchList = React.lazy(
+  () =>
+    import(
+      "../../components/SearchList/SearchList"
+    ) /* webpackChunkName: "SearchList" */
+);
+const Loader = React.lazy(
+  () => import("react-loader-spinner") /* webpackChunkName: "Loader" */
+);
 
 class SearchMoviesForm extends Component {
   state = {
@@ -71,20 +78,24 @@ class SearchMoviesForm extends Component {
           </div>
         )}
         {this.state.loadContentFlag === 1 && (
-          <SearchList
-            search={this.state.search}
-            from={`${this.props.location.pathname}/?name=${this.state.currentSearch}`}
-          />
+          <React.Suspense fallback={<></>}>
+            <SearchList
+              search={this.state.search}
+              from={`${this.props.location.pathname}/?name=${this.state.currentSearch}`}
+            />
+          </React.Suspense>
         )}
         {this.state.loadContentFlag === 1 && (
           <div className="">
-            <Loader
-              type="Puff"
-              color="#00BFFF"
-              height={50}
-              width={50}
-              timeout={900}
-            />
+            <React.Suspense fallback={<></>}>
+              <Loader
+                type="Puff"
+                color="#00BFFF"
+                height={50}
+                width={50}
+                timeout={900}
+              />
+            </React.Suspense>
           </div>
         )}
       </>

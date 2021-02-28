@@ -2,8 +2,13 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 import styles from "./HomeView.module.css";
-import CastModal from "../../components/CastModal/CastModal";
 
+const CastModal = React.lazy(
+  () =>
+    import(
+      "../../components/CastModal/CastModal"
+    ) /* webpackChunkName: "CastModal" */
+);
 class HomeView extends Component {
   state = {
     films: [],
@@ -103,7 +108,9 @@ class HomeView extends Component {
               )}
             </ul>
             {this.state.showCastModal && (
-              <CastModal currentCastPerson={this.state.currentCastPerson} />
+              <React.Suspense fallback={<div>Loading</div>}>
+                <CastModal currentCastPerson={this.state.currentCastPerson} />
+              </React.Suspense>
             )}
           </div>
         </div>
