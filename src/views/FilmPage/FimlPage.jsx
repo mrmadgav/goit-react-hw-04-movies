@@ -28,7 +28,7 @@ class FilmPage extends Component {
     this.setState({ genres: genres });
   }
   handleGoBack = () => {
-    this.props.history.goBack();
+    this.props.history.push(this.props.location.state.from);
   };
   render() {
     return (
@@ -58,8 +58,14 @@ class FilmPage extends Component {
         <div className={styles.additionals}>
           <span className={styles.undertitles}>Additional Information</span>
           <div className={styles.filmPageAddNav}>
-            <CastButton id={this.state.films.id} />
-            <ReviewsButton id={this.state.films.id} />
+            <CastButton
+              id={this.state.films.id}
+              location={this.props.history.location.state.from}
+            />
+            <ReviewsButton
+              id={this.state.films.id}
+              location={this.props.history.location.state.from}
+            />
             <React.Suspense fallback={<div>Loading</div>}>
               <Cast id={this.state.films.id} />
               <Reviews id={this.state.films.id} />

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import Axios from "axios";
 import styles from "./HomeView.module.css";
 
@@ -77,7 +77,7 @@ class HomeView extends Component {
           <Link
             to={{
               pathname: `/movies/${randomFilm.id}`,
-              state: { from: this.props.location },
+              state: { from: this.location },
             }}
           >
             <img
@@ -95,15 +95,13 @@ class HomeView extends Component {
               {this.state.randomCast.map(
                 (i, index) =>
                   [index] <= 5 && (
-                    <>
-                      <li
-                        key={i.name}
-                        onMouseEnter={(e) => this.handleOnMouseOver(e)}
-                        onMouseLeave={(e) => this.handleOnMouseLeave(e)}
-                      >
-                        <span className={styles.castSpan}>{i.name}</span>
-                      </li>
-                    </>
+                    <li
+                      key={i.name}
+                      onMouseEnter={(e) => this.handleOnMouseOver(e)}
+                      onMouseLeave={(e) => this.handleOnMouseLeave(e)}
+                    >
+                      <span className={styles.castSpan}>{i.name}</span>
+                    </li>
                   )
               )}
             </ul>
@@ -119,4 +117,4 @@ class HomeView extends Component {
   }
 }
 
-export default HomeView;
+export default withRouter(HomeView);

@@ -17,6 +17,7 @@ class SearchMoviesForm extends Component {
     search: [],
     currentSearch: "",
     loadContentFlag: 0,
+    loader: false,
   };
 
   change = (e) => {
@@ -24,34 +25,31 @@ class SearchMoviesForm extends Component {
   };
 
   componentDidMount() {
-    const mountSearchQuery = this.props.location.search.substr(6);
-    console.log(mountSearchQuery);
-    setTimeout(() => {
-      Axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=cae2ba5bb4d635ff4cc14f2582722050&query=${mountSearchQuery}`,
-        { credentials: "include" }
-      ).then((response) => this.setState({ search: response.data.results }));
-    }, 1400);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.location.search !== nextProps.location.search) {
-      setTimeout(() => {
-        Axios.get(
-          `https://api.themoviedb.org/3/search/movie?api_key=cae2ba5bb4d635ff4cc14f2582722050&query=${this.state.currentSearch}`,
-          { credentials: "include" }
-        ).then((response) => this.setState({ search: response.data.results }));
-      }, 1400);
+    this.setState({ loadContentFlag: 1 });
+    if (this.props.history.location.search.length > 0) {
+      this.makeSearch(this.props.history.location.search.substr(6));
     }
   }
 
   submit = (e) => {
     e.preventDefault();
-    this.setState({ loadContentFlag: 1 });
+    this.setState({ loadContentFlag: 1, loader: true });
     this.props.history.push({
       pathname: this.props.location.pathname,
       search: `name=${this.state.currentSearch}`,
     });
+    const query = this.state.currentSearch;
+    this.makeSearch(query);
+  };
+
+  makeSearch = (query) => {
+    const mountSearchQuery = this.props.location.search.substr(6);
+    setTimeout(() => {
+      Axios.get(
+        `https://api.themoviedb.org/3/search/movie?api_key=cae2ba5bb4d635ff4cc14f2582722050&query=${query}`,
+        { credentials: "include" }
+      ).then((response) => this.setState({ search: response.data.results }));
+    }, 1400);
   };
 
   render() {
@@ -72,7 +70,7 @@ class SearchMoviesForm extends Component {
           />
         </form>
 
-        {this.state.loadContentFlag === 0 && (
+        {this.state.loader && (
           <div className="">
             <span>You results will be here</span>
           </div>
@@ -81,11 +79,11 @@ class SearchMoviesForm extends Component {
           <React.Suspense fallback={<></>}>
             <SearchList
               search={this.state.search}
-              from={`${this.props.location.pathname}/?name=${this.state.currentSearch}`}
+              from={`${this.props.location.pathname}?name=${this.state.currentSearch}`}
             />
           </React.Suspense>
         )}
-        {this.state.loadContentFlag === 1 && (
+        {this.state.loader && (
           <div className="">
             <React.Suspense fallback={<></>}>
               <Loader

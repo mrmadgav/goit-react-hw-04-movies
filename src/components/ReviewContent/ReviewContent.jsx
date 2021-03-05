@@ -28,8 +28,7 @@ export default class ReviewContent extends Component {
                     </span>
                   </div>
                   <p>{i.content.split("/(.{0,37}[s])/gi")}</p>
-                  {/*Как разбить JSON на абзацы или отследить разрывы строк, которые там есть? Ни регулярки, ниче не помогает((( */}
-                </li>
+                        </li>
               )
           )
         ) : (

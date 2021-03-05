@@ -5,7 +5,7 @@ import styles from "./SearchItem.module.css";
 
 export default class SearchItem extends Component {
   render() {
-    const { item } = this.props;
+    const { item } = this.props;   
 
     return (
       <>
@@ -15,7 +15,7 @@ export default class SearchItem extends Component {
               to={{
                 pathname: `/movies/${item.id}`,
                 state: {
-                  from: `/movies/${this.props.location}`,
+                  from: `${this.props.from}`,
                 },
               }}
               className={styles.NavLink}
