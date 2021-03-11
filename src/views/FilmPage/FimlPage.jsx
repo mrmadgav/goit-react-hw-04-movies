@@ -27,9 +27,8 @@ class FilmPage extends Component {
     const genres = this.state.films.genres.map((i) => i.name).join(", ");
     this.setState({ genres: genres });
   }
-  handleGoBack = () => {
-    console.log(this.props);
-    this.props.history.push(this.props.location.state.from);
+  handleGoBack = () => {   
+    this.props.history.push(this.props.location.state.from);   
   };
   render() {
     return (
