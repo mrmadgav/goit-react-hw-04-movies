@@ -5,7 +5,7 @@ import styles from "./SearchItem.module.css";
 
 export default class SearchItem extends Component {
   render() {
-    const { item } = this.props;   
+    const { item } = this.props;
 
     return (
       <>
@@ -19,7 +19,7 @@ export default class SearchItem extends Component {
                 },
               }}
               className={styles.NavLink}
-              activeClassName={styles.NavLinkActive}
+              activeClassName={styles.NavLinkActive}             
             >
               {item.title}
               <p>Release Date:</p>

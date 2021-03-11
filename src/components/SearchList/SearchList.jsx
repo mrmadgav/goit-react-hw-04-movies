@@ -4,7 +4,10 @@ import styles from "./SearchList.module.css";
 import { v4 as uuidv4 } from "uuid";
 
 export default class SearchList extends Component {
-  render() { 
+  componentDidMount() {
+    // console.log("Пропсы в Search List", this.props);
+  }
+  render() {
     return (
       <>
         <p className={styles.searchResultTitle}>

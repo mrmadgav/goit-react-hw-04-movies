@@ -28,6 +28,7 @@ class FilmPage extends Component {
     this.setState({ genres: genres });
   }
   handleGoBack = () => {
+    console.log(this.props);
     this.props.history.push(this.props.location.state.from);
   };
   render() {
